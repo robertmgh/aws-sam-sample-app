@@ -1,0 +1,90 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  aws-sam-sample-app
+Globals:
+  Function:
+    Timeout: 3
+Resources:
+  UsersTable:
+    Type: "AWS::Serverless::SimpleTable"
+  GetAllFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: users/
+      Handler: getAll.lambdaHandler
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref UsersTable
+      Runtime: nodejs12.x
+      Events:
+        GetAll:
+          Type: Api 
+          Properties:
+            Path: /users
+            Method: get
+  GetFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: users/
+      Handler: get.lambdaHandler
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref UsersTable
+      Runtime: nodejs12.x
+      Events:
+        Get:
+          Type: Api 
+          Properties:
+            Path: /users/{id}
+            Method: get
+  PutFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: users/
+      Handler: put.lambdaHandler
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref UsersTable
+      Runtime: nodejs12.x
+      Events:
+        Put:
+          Type: Api 
+          Properties:
+            Path: /users
+            Method: put
+  PostFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: users/
+      Handler: post.lambdaHandler
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref UsersTable
+      Runtime: nodejs12.x
+      Events:
+        Post:
+          Type: HttpApi
+          Properties:
+            Path: /users
+            Method: post
+  DeleteFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: users/
+      Handler: delete.lambdaHandler
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref UsersTable
+      Runtime: nodejs12.x
+      Events:
+        Delete:
+          Type: HttpApi
+          Properties:
+            Path: /users/{id}
+            Method: delete

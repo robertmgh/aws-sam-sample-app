@@ -1,0 +1,19 @@
+{
+  "name": "aws-sam-sample-app",
+  "version": "1.0.0",
+  "description": "aws-sam-sample-app",
+  "main": "get.js",
+  "author": "Robert Michnowski",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "uuid": "^8.1.0"
+  },
+  "scripts": {
+    "test": "mocha tests/unit/"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4"
+  }
+}
